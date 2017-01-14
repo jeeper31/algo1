@@ -1,3 +1,5 @@
+package com.gaddieind.algs1.assignment1;
+
 /**
  * Created by Alex on 1/13/2017.
  */

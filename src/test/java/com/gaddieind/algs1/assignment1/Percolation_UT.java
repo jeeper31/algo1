@@ -1,3 +1,6 @@
+package com.gaddieind.algs1.assignment1;
+
+import com.gaddieind.algs1.assignment1.Percolation;
 import org.junit.Test;
 
 import static org.junit.Assert.assertFalse;
