@@ -29,7 +29,9 @@ public class Percolation {
 
         //connect up the virtual nodes if we are on the top or bottom rows
         if (row - 1 == 0) weightedUnion.union(0, index);
-        if (row - 1 == n - 1) weightedUnion.union(size - 1, index);
+
+        //This causes percolation from the bottom up
+       // if (row - 1 == n - 1) weightedUnion.union(size - 1, index);
 
         int above = index - n;
         int below = index + n;
@@ -60,6 +62,12 @@ public class Percolation {
     }
 
     public boolean percolates(){
-        return weightedUnion.connected(0, size - 1);
+        //return weightedUnion.connected(0, size - 1);
+        int startingIndex = n * n - n;
+        for(int i = startingIndex; i <= n * n; i++){
+            if(weightedUnion.connected(0, i)) return true;
+        }
+
+        return false;
     }
 }

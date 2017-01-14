@@ -12,11 +12,23 @@ import static org.junit.Assert.assertTrue;
 public class Percolation_UT {
 
     @Test
+    public void shouldPercolate_isolatedBottomBoxNotFull() {
+        Percolation percolation = new Percolation(3);
+
+        percolation.open(1,1);
+
+        percolation.open(3,3);
+
+        percolation.open(2,1);
+        percolation.open(3,1);
+
+        assertTrue(percolation.percolates());
+        assertFalse(percolation.isFull(3, 3));
+    }
+
+    @Test
     public void shouldPercolate(){
         Percolation percolation = new Percolation(8);
-
-
-
         percolation.open(1, 0);
         percolation.open(1, 3);
         percolation.open(1, 4);
