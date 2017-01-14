@@ -15,9 +15,7 @@ public class Percolation_UT {
     public void shouldPercolate(){
         Percolation percolation = new Percolation(8);
 
-        percolation.open(0, 2);
-        percolation.open(0, 3);
-        percolation.open(0, 4);
+
 
         percolation.open(1, 0);
         percolation.open(1, 3);
@@ -25,6 +23,10 @@ public class Percolation_UT {
         percolation.open(1, 5);
         percolation.open(1, 6);
         percolation.open(1, 7);
+
+        percolation.open(0, 2);
+        percolation.open(0, 3);
+        percolation.open(0, 4);
 
         percolation.open(2, 0);
         percolation.open(2, 1);
