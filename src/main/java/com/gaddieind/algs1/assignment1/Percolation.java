@@ -15,6 +15,7 @@ public class Percolation {
 
     // create n-by-n grid, with all sites blocked
     public Percolation(int n){
+        if(n <= 0) throw new IllegalArgumentException("n must be at least one.");
         this.n = n;
         this.size = (n * n) + 2;
         weightedUnion = new WeightedQuickUnionUF(size);
@@ -23,15 +24,14 @@ public class Percolation {
 
     // open site (row, col) if it is not open already
     public void open(int row, int col) {
+        rowAndColWithinBounds(row, col);
+        if(isOpen(row, col)) return;
         int index = getIndex(row, col);
         openings[index] = true;
         openSites++;
 
         //connect up the virtual nodes if we are on the top or bottom rows
         if (row - 1 == 0) weightedUnion.union(0, index);
-
-        //This causes percolation from the bottom up
-       // if (row - 1 == n - 1) weightedUnion.union(size - 1, index);
 
         int above = index - n;
         int below = index + n;
@@ -43,7 +43,12 @@ public class Percolation {
         if (col < n && openings[right]) weightedUnion.union(right, index);
     }
 
+    private void rowAndColWithinBounds(int row, int col) {
+        if(row <= 0 || row > n || col <= 0 || col > n) throw new IllegalArgumentException("row and col must be in bounds.");
+    }
+
     public boolean isOpen(int row, int col){
+        rowAndColWithinBounds(row, col);
         int index = getIndex(row, col);
         return openings[index];
     }
@@ -53,6 +58,7 @@ public class Percolation {
     }
 
     public boolean isFull(int row, int col){
+        rowAndColWithinBounds(row, col);
         int index = getIndex(row, col);
         return weightedUnion.connected(0, index);
     }
@@ -62,9 +68,9 @@ public class Percolation {
     }
 
     public boolean percolates(){
-        //return weightedUnion.connected(0, size - 1);
-        int startingIndex = n * n - n;
+        int startingIndex = n * n - n + 1;
         for(int i = startingIndex; i <= n * n; i++){
+            if(!openings[i]) continue;
             if(weightedUnion.connected(0, i)) return true;
         }
 
